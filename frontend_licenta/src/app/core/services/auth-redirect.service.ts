@@ -17,11 +17,13 @@ export class AuthenticationService {
   private readonly baseUrl = 'http://localhost:5089/Authentication';
   private jwtHelper = new JwtHelperService();
   private logoutTimeout: any;
-  constructor(private http: HttpClient, private router: Router){}
+  constructor(private http: HttpClient, private router: Router)
+  { 
+    this.scheduleAutoLogout();
+  }
 
   registerUser(user: RegisterDto): Observable<boolean> {
     return this.http.post<boolean>(this.baseUrl, user).pipe(
-      map(result => result),
       catchError((error: HttpErrorResponse) => {
         if (error.status === 409) {
           return throwError(() => new Error(error.error)); 
@@ -68,6 +70,7 @@ export class AuthenticationService {
       this.router.navigateByUrl('/login');
     }
   }
+  
   recoverPassword(email: string): Observable<boolean> {
     return this.http.post<boolean>(`${this.baseUrl}/RecoverPassword?email=${encodeURIComponent(email)}`, {}).pipe(
       catchError(this.handleError)
@@ -103,7 +106,12 @@ export class AuthenticationService {
   }
 
   isLogged(): boolean {
-    return !!localStorage.getItem('token');
+    const token = this.getToken();
+    if (!token || this.jwtHelper.isTokenExpired(token)) {
+      this.logout();
+      return false;
+    }
+    return true;
   }
 
   getEmail(): string {

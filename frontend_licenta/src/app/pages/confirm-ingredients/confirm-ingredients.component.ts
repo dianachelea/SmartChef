@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-confirm-ingredients',
@@ -12,10 +13,7 @@ export class ConfirmIngredientsComponent {
   newIngredient: string = '';
   substitutes: { [ingredient: string]: string[] } = {};
 
-  constructor(private router: Router) {
-    const raw = localStorage.getItem('detectedIngredients');
-    this.ingredients = raw ? JSON.parse(raw) : [];
-  }
+  constructor(private router: Router) { }
   ngOnInit() {
     const raw = localStorage.getItem('detectedIngredients');
     this.ingredients = raw ? JSON.parse(raw) : [];
@@ -25,8 +23,7 @@ export class ConfirmIngredientsComponent {
     });
   }
   fetchSubstitutes(ingredient: string) {
-    const apiKey = '5e029357d7e64a479bca8938d3b212c2';
-    const url = `https://api.spoonacular.com/food/ingredients/substitutes?ingredientName=${ingredient}&apiKey=${apiKey}`;
+    const url = `https://api.spoonacular.com/food/ingredients/substitutes?ingredientName=${encodeURIComponent(ingredient)}&apiKey=${environment.spoonacularApiKey}`;
   
     fetch(url)
       .then(res => res.json())

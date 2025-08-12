@@ -15,8 +15,9 @@ export class MySubscribesComponent {
   constructor(private userService: UserServiceService,private subService: SubscriptionService, private router: Router ) {}
 
   ngOnInit() {
-    this.userService.getSubscribedUsers().subscribe(u => (this.subs = u));
+    this.loadSubscribedUsers();
   }
+
   loadSubscribedUsers() {
     this.userService.getSubscribedUsers().subscribe(u => (this.subs = u));
   }
@@ -26,6 +27,7 @@ export class MySubscribesComponent {
       this.subs = this.subs.filter(u => u.id !== userId);
     });
   }
+
   viewProfile(userId: string) {
     this.router.navigate([`/community/${userId}`], {
     });

@@ -91,6 +91,5 @@ export class RegisterComponent {
     const confirmPassword = form.get('confirmPassword')?.value;
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
-  
-  
+
 }

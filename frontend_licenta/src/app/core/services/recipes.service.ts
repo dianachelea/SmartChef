@@ -2,12 +2,13 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { catchError, of } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class RecipesService {
-  private apiKey = '5e029357d7e64a479bca8938d3b212c2';  
+  private apiKey = environment.spoonacularApiKey;
   private apiUrl = 'https://api.spoonacular.com/recipes/complexSearch';
-  private baseUrl = 'http://localhost:5089/Recipes';
+  private baseUrl = `${environment.apiBaseUrl}/Recipes`;
   constructor(private http: HttpClient) {}
 
   getRecipes(filters: any): Observable<any> {
@@ -66,16 +67,17 @@ export class RecipesService {
           this.http.get<any[]>('https://api.spoonacular.com/recipes/informationBulk', { params: bulkParams })
             .subscribe(bulkRes => {
               const lowerIngredients = ingredients.map(i => i.toLowerCase());
-              const sortedResults = bulkRes.sort((a, b) => {
-                const aIngr = a.extendedIngredients.map((i: any) => i.name.toLowerCase());
-                const bIngr = b.extendedIngredients.map((i: any) => i.name.toLowerCase());
-  
-                const hasAllA = lowerIngredients.every(i => aIngr.includes(i));
-                const hasAllB = lowerIngredients.every(i => bIngr.includes(i));
-  
-                return (hasAllB ? 1 : 0) - (hasAllA ? 1 : 0); 
+              const sortedResults = bulkRes
+                .map(recipe => {
+                  const recipeIngr = recipe.extendedIngredients.map((i: any) => i.name.toLowerCase());
+                  const matchCount = lowerIngredients.filter(i => recipeIngr.includes(i)).length;
+                  return { ...recipe, matchCount };
+                })
+                .sort((a, b) => b.matchCount - a.matchCount);
+
+              observer.next({
+                results: sortedResults.map(({ matchCount, ...rest }) => rest)
               });
-              observer.next({ results: sortedResults });
               observer.complete();
             }, err => observer.error(err));
         }, err => observer.error(err));
@@ -87,9 +89,9 @@ export class RecipesService {
       title: recipe.title,
       image: recipe.image,
       serving: recipe.servings || recipe.serving || 0,
-      readyInMinutes: recipe.readyInMinutes || 0,
       cookingMinutes: recipe.cookingMinutes ?? 0,
       preparationMinutes: recipe.preparationMinutes ?? 0,
+      readyInMinutes: recipe.readyInMinutes ?? ((recipe.cookingMinutes ?? 0) + (recipe.preparationMinutes ?? 0)),
       ingredients: recipe.ingredients 
         || recipe.extendedIngredients?.map((i: any) => i.original).join(', ') 
         || '',
@@ -110,19 +112,16 @@ export class RecipesService {
     );
   }
   
-  deleteRecipe(recipeId: string): Observable<any> {
-    const token = localStorage.getItem('token');
-    const email = localStorage.getItem('email');
-  
-    return this.http.delete(`http://localhost:5089/Recipes/DeleteRecipe/${recipeId}`);
+  deleteRecipe(recipeId: string): Observable<any> {  
+    return this.http.delete(`${environment.apiBaseUrl}/Recipes/DeleteRecipe/${recipeId}`);
   }
 
   getUserRecipeById(id: string) {
-    return this.http.get(`http://localhost:5089/Recipes/GetById/${id}`);
+    return this.http.get(`${environment.apiBaseUrl}/Recipes/GetById/${id}`);
   }
 
   getRecipeByUserAndId(userId: string, recipeId: string) {
-    return this.http.get(`http://localhost:5089/Recipes/GetByUserAndRecipeId/${userId}/${recipeId}`);
+    return this.http.get(`${environment.apiBaseUrl}/Recipes/GetByUserAndRecipeId/${userId}/${recipeId}`);
   }
 
   markAsFavorite(recipe: any): Observable<any> {

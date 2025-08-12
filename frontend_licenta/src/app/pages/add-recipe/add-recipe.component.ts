@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { RecipesService } from '../../core/services/recipes.service';
 
 @Component({
   selector: 'app-add-recipe',
@@ -12,7 +13,7 @@ import { Router } from '@angular/router';
 export class AddRecipeComponent implements OnInit {
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {}
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private recipesService: RecipesService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -32,7 +33,7 @@ export class AddRecipeComponent implements OnInit {
   }
   
   onSubmit() {
-    this.http.post('http://localhost:5089/Recipes/AddRecipe', this.form.value)
+    this.recipesService.addToUserRecipes(this.form.value)
       .subscribe(() => {
         alert('Recipe added!');
         this.router.navigate(['/dashboard/my-recipes']);

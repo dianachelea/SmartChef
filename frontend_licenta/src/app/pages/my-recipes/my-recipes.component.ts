@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RecipeDetailsComponent } from '../recipe-details/recipe-details.component';
 import { Router } from '@angular/router';
+import { RecipesService } from '../../core/services/recipes.service';
+
 @Component({
   selector: 'app-my-recipes',
   templateUrl: './my-recipes.component.html',
@@ -17,27 +19,21 @@ export class MyRecipesComponent implements OnInit {
   currentPage = 1;
   recipesPerPage = 4;
   
-  constructor(private http: HttpClient,private router: Router) {}
+  constructor(private http: HttpClient,private router: Router,private recipeService: RecipesService) {}
 
   ngOnInit() {
     this.loadRecipes();
   }
 
   loadRecipes() {
-    const token = localStorage.getItem('token'); 
     this.http.get<any[]>('http://localhost:5089/Recipes/GetByUser/user', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
     }).subscribe((res) => {
       this.recipes = res;
       this.filteredRecipes = [...res];
       this.computeStats();
     });
-    
   }
   
-
   filter(type: string) {
     this.selected = type;
     if (type === 'favorite') {
@@ -54,7 +50,6 @@ export class MyRecipesComponent implements OnInit {
   computeStats() {
     const triedMine = this.recipes.filter(r => r.isTried || (!r.isFavorite && !r.isTried));
     const count = triedMine.length || 1;
-
     const countByClass = { A: 0, B: 0, C: 0, D: 0 };
     for (const r of triedMine) {
       const c = r.calories;
@@ -76,11 +71,10 @@ export class MyRecipesComponent implements OnInit {
       state: { recipe }
     });
   }
-
   
   deleteRecipe(recipe: any) {
     if (confirm('Delete this recipe?')) {
-      this.http.delete(`http://localhost:5089/Recipes/DeleteRecipe/${recipe.id}`).subscribe({
+      this.recipeService.deleteRecipe(recipe.id).subscribe({
         next: () => {
           this.recipes = this.recipes.filter(r => r.id !== recipe.id);
           this.filteredRecipes = this.filteredRecipes.filter(r => r.id !== recipe.id);
@@ -123,6 +117,5 @@ export class MyRecipesComponent implements OnInit {
   addNewRecipe() {
     this.router.navigate(['/dashboard/add-recipe']);
   }
-  
   
 }

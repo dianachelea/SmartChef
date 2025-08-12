@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipesService } from './../../core/services/recipes.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 interface Recipe {
   id: number;
@@ -127,9 +128,6 @@ export class RecipesComponent implements OnInit {
                 .filter((recipe: Recipe) =>
                   recipe.calories >= minCalories && recipe.calories <= maxCalories
                 )
-                .sort((a: Recipe, b: Recipe) =>
-                  this.sortBy === 'name' ? a.title.localeCompare(b.title) : 0
-                );
 
               this.totalResults = allResults.length;
               const offset = (this.currentPage - 1) * this.pageSize;
@@ -159,7 +157,6 @@ export class RecipesComponent implements OnInit {
     } else {
       pages.push(1, 2);
       if (current > 4) pages.push('...');
-
       const midStart = Math.max(3, current - 1);
       const midEnd = Math.min(total - 2, current + 1);
 
@@ -328,7 +325,7 @@ export class RecipesComponent implements OnInit {
   
         try {
           const res = await this.http.post<{ ingredients: string[] }>(
-            'http://localhost:5089/api/upload/detect',
+            `${environment.apiBaseUrl}/api/upload/detect`,
             formData
           ).toPromise();
   
@@ -347,7 +344,6 @@ export class RecipesComponent implements OnInit {
         }
       }
     };
-  
     input.click();
   }
   
@@ -356,7 +352,14 @@ export class RecipesComponent implements OnInit {
   }
   
   addToFavorites(recipe: any) {
-    this.http.get(`https://api.spoonacular.com/recipes/${recipe.id}/information?includeNutrition=true&apiKey=5e029357d7e64a479bca8938d3b212c2`)
+    const params = new HttpParams()
+      .set('includeNutrition', 'true')
+      .set('apiKey', environment.spoonacularApiKey);
+
+    this.http.get(
+      `https://api.spoonacular.com/recipes/${recipe.id}/information`,
+      { params }
+    )
       .subscribe((fullData: any) => {
         const safeRecipe = {
           ...fullData,
@@ -372,7 +375,14 @@ export class RecipesComponent implements OnInit {
   }
   
   addToTried(recipe: any) {
-    this.http.get(`https://api.spoonacular.com/recipes/${recipe.id}/information?includeNutrition=true&apiKey=5e029357d7e64a479bca8938d3b212c2`)
+    const params = new HttpParams()
+      .set('includeNutrition', 'true')
+      .set('apiKey', environment.spoonacularApiKey);
+
+    this.http.get(
+      `https://api.spoonacular.com/recipes/${recipe.id}/information`,
+      { params }
+    )
       .subscribe((fullData: any) => {
         const safeRecipe = {
           ...fullData,

@@ -38,7 +38,6 @@
         </div>
     </aside>
       
-
     <main class="content">
         <section class="heading">
             <h2>Discover our recipes</h2>
@@ -68,8 +67,7 @@
                 <img [src]="recipe.image" alt="{{ recipe.title }}">
                 <h4>{{ recipe.title }}</h4>
                 <p *ngIf="recipe.calories !== null">Calories: {{ recipe.calories }} kcal</p>
-                <p *ngIf="recipe.readyInMinutes !== null">Ready in: {{ recipe.readyInMinutes }} min</p>
-                <p *ngIf="recipe.readyInMinutes === null">Ready time unknown</p>
+                <p>Ready in: {{ recipe?.readyInMinutes ?? 'unknown' }} min</p>
                 <div class="icons">
                     <button (click)="addToFavorites(recipe)" class="icon-btn" title="Add to Favorites">
                         <mat-icon color="warn">favorite</mat-icon>
@@ -91,7 +89,7 @@
                 </ng-container>
                 <ng-template #ellipsis>
                     <span class="ellipsis">...</span>
-                </ng-template>
+                </ng-template> 
             </ng-container>
 
             <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">&gt;</button>

@@ -29,10 +29,13 @@
 
             <div class="icons">
                 <ng-container *ngFor="let hat of hats; let i = index">
-                    <span class="chef-icon" [class.filled]="i < hoverRating || i < contact.Stars"
-                        [class.selected]="i < contact.Stars" (mouseenter)="hoverRating = i + 1"
-                        (mouseleave)="hoverRating = 0" (click)="contact.Stars = i + 1">
-                        👨‍🍳
+                    <span class="chef-icon" 
+                    [class.filled]="i < hoverRating || i < contact.Stars"
+                    [class.selected]="i < contact.Stars" 
+                    (mouseenter)="hoverRating = i + 1"
+                    (mouseleave)="hoverRating = 0" 
+                    (click)="contact.Stars = i + 1">
+                    👨‍🍳
                     </span>
                 </ng-container>
             </div>

@@ -35,7 +35,8 @@ export class UserServiceService {
   }
   getPublicUsers(country?: string): Observable<UserCredentials[]> {
     let url ='http://localhost:5089/Authentication/GetPublicUsers';
-    if (country) url += `?country=${encodeURIComponent(country)}`;
+    if (country)
+      url += `?country=${encodeURIComponent(country)}`;
     return this.http.get<UserCredentials[]>(url);
   }
   getSubscribedUsers(): Observable<UserCredentials[]> {
@@ -56,6 +57,5 @@ export class UserServiceService {
   getUserByEmail(email: string): Observable<UserCredentials> {
     return this.http.get<UserCredentials>(`http://localhost:5089/Authentication/GetUserByEmail/${email}`);
   }
-  
   
 }

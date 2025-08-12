@@ -18,25 +18,20 @@ export class CommunityComponent implements OnInit {
   subscriberCounts: { [key: string]: number } = {};
 
   ngOnInit() {
+    this.loadUsers();
+  }
+
+  loadUsers() {
     const currentEmail = localStorage.getItem('email');
-  
-    this.userService.getPublicUsers().subscribe(users => {
+    this.userService.getPublicUsers(this.selectedCountry).subscribe(users => {
       this.users = users.filter(u => u.email !== currentEmail);
       this.extractCountries(this.users);
-  
+      
       this.users.forEach(u => {
         this.userService.getSubscribersCount(u.id).subscribe(count => {
           this.subscriberCounts[u.id] = count;
         });
       });
-    });
-  }
-  
-
-  loadUsers() {
-    this.userService.getPublicUsers(this.selectedCountry).subscribe(users => {
-      this.users = users;
-      this.countries = Array.from(new Set(users.map(u => u.country))).sort();
     });
   }
 
@@ -49,12 +44,9 @@ export class CommunityComponent implements OnInit {
       console.error('Invalid user passed to viewUser()', user);
       return;
     }
-  
     this.router.navigate(['/community', user.id]);
   }
   extractCountries(users: UserCredentials[]) {
     this.countries = Array.from(new Set(users.map(u => u.country))).sort();
   }
-
-  
 }

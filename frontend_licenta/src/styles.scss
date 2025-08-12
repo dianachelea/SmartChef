@@ -1,3 +1,4 @@
+/* === RESET MINIM === */
 *,
 *::before,
 *::after {
@@ -83,7 +84,7 @@
         .main-nav {
             flex-direction: row;
             gap: 8px;
-            font-size: 12px; 
+            font-size: 12px; // font mai mic
         }
 
         .actions {

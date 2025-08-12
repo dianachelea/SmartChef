@@ -18,7 +18,6 @@ export class FeedbackService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.post<boolean>(`${this.baseUrl}/AddFeedback`, feedback, { headers }).pipe(
-      map(response => response),
       catchError(this.handleError)
     );
   }

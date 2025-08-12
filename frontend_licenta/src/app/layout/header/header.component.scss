@@ -11,25 +11,28 @@
     .brand img {
         height: 40px;
     }
-    .main-nav {
-        display: flex;
-        gap: 32px;
-        font-weight: 600;
-        font-size: 20px;
-        margin-left: auto;
-        a {
-            color: #333; 
-            text-decoration: none;
-            transition: color .2s;
-
-            &.is-active {
-                color: #218600; 
-            }
-            
-            &:hover {
-                color: color.scale(#99e97c, $lightness: -10%);
+        .main-nav {
+            display: flex;
+            gap: 32px;
+            font-weight: 600;
+            font-size: 20px;
+    
+            a {
+                color: #333; 
+                text-decoration: none;
+                transition: color .2s;
+    
+                &.is-active {
+                    color: #218600; 
+                }
+                
+                &:hover {
+                    color: color.scale(#99e97c, $lightness: -10%);
+                }
             }
         }
+    .main-nav{
+        margin-left: auto;
     }
     .search-bar {
         position: relative;

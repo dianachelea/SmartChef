@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipesService } from '../../core/services/recipes.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams  } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-recipe-details',
@@ -30,50 +31,41 @@ export class RecipeDetailsComponent implements OnInit {
   
     if (userId && recipeId) {
       this.recipeService.getRecipeByUserAndId(userId, recipeId).subscribe((data: any) => {
-        const currentEmail = localStorage.getItem('email');
         this.recipe = {
           ...data,
           extendedIngredients: data.ingredients?.split(',').map((i: string) => ({ original: i.trim() })) || []
         };
-      
         this.calories = data.calories ?? 0;
         this.isFromProfile = true;
-        this.isMine = data.authorEmail === currentEmail;
-      });      
-    } else {
-      const navRecipe = history.state.recipe;
-      const isSavedRecipe = localId?.includes('-');
-  
-      if (isSavedRecipe) {
+        this.isMine = false;
+      });
+    } else if (localId?.includes('-')) {
+      this.recipeService.getUserRecipeById(localId).subscribe((data: any) => {
+        this.recipe = {
+          ...data,
+          extendedIngredients: data.ingredients?.split(',').map((i: string) => ({ original: i.trim() })) || []
+        };
+        this.calories = data.calories ?? 0;
         this.isFromProfile = true;
-        if (navRecipe) {
+        this.isMine = true;
+      });
+    } else if (localId) {
+      const params = new HttpParams()
+      .set('includeNutrition', 'true')
+      .set('apiKey', environment.spoonacularApiKey);
+
+    this.http.get(
+      `https://api.spoonacular.com/recipes/${localId}/information`,
+      { params })
+        .subscribe((data: any) => {
           this.recipe = {
-            ...navRecipe,
-            extendedIngredients: navRecipe.ingredients?.split(',').map((i: string) => ({ original: i.trim() })) || []
+            ...data,
+            extendedIngredients: data.extendedIngredients || []
           };
-          this.calories = navRecipe.calories ?? 0;
-          this.isMine = true;
-        } else {
-          this.recipeService.getUserRecipeById(localId!).subscribe((data: any) => {
-            this.recipe = {
-              ...data,
-              extendedIngredients: data.ingredients?.split(',').map((i: string) => ({ original: i.trim() })) || []
-            };
-            this.calories = data.calories ?? 0;
-            this.isMine = true;
-          });
-        }
-      } else {
-        this.http.get(`https://api.spoonacular.com/recipes/${localId}/information?includeNutrition=true&apiKey=5e029357d7e64a479bca8938d3b212c2`)
-          .subscribe((data: any) => {
-            this.recipe = {
-              ...data,
-              extendedIngredients: data.extendedIngredients || [],
-            };
-            this.calories = this.extractCalories(data);
-            this.isMine = false;
-          });
-      }
+          console.log(this.recipe);
+          this.calories = this.extractCalories(data);
+          this.isMine = false;
+        });
     }
   }
   
@@ -103,15 +95,12 @@ export class RecipeDetailsComponent implements OnInit {
 
   modifyRecipe() {
     const id = this.recipe?.id;
-  
     if (!id || typeof id !== 'string' || !id.includes('-')) {
       alert("You can only modify recipes saved in your profile.");
       return;
     }
-  
     this.router.navigate(['/dashboard/edit-recipe', id]);
   }
-  
 
   addToFavorites() {
     this.saveRecipeToBackend(true, false);
