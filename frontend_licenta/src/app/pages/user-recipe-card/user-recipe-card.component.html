@@ -1,0 +1,19 @@
+<div class="card" (click)="view.emit()">
+    <img [src]="recipe?.image" alt="{{ recipe?.title }}" />
+    <div class="card-body">
+        <h4>{{ recipe?.title }}</h4>
+        <p>Calories: {{ recipe?.calories }} kcal</p>
+
+        <div class="actions">
+            <ng-container *ngIf="isOwnProfile; else publicActions">
+                <button class="btn delete" (click)="delete.emit(); $event.stopPropagation()">Delete</button>
+                <button class="btn modify" (click)="edit.emit(); $event.stopPropagation()">Modify</button>
+            </ng-container>
+            <ng-template #publicActions>
+                <button class="btn favorite" (click)="addToFavorite(); $event.stopPropagation()">Add to Favorite</button>
+                <button class="btn tried" (click)="addToTried(); $event.stopPropagation()">Add to Tried</button>
+            </ng-template>
+        </div>
+    </div>
+</div>
+  

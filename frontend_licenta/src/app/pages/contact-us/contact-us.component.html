@@ -1,0 +1,44 @@
+<div class="contact-container">
+    <div class="contact-box">
+        <h2>Contact Us</h2>
+        <p class="subtitle">Feel free to leave us a message!</p>
+
+        <form (ngSubmit)="submitContact()" #contactForm="ngForm">
+            <div class="row">
+                <input type="text" name="name" placeholder="Name*" required [(ngModel)]="contact.Name" />
+                <input type="email" name="email" placeholder="Email*" required [(ngModel)]="contact.Email" />
+            </div>
+
+            <div class="row">
+                <select name="subject" required [(ngModel)]="contact.Category">
+                    <option value="" disabled selected>Subject*</option>
+                    <option *ngFor="let category of categories" [ngValue]="category.value">
+                        {{ category.label }}
+                    </option>
+                </select>
+
+                <label class="checkbox">
+                    <input type="checkbox" [(ngModel)]="contact.IsAnonymus" name="anonymous" />
+                    Click for anonymity
+                </label>
+            </div>
+
+            <input type="text" name="title" placeholder="Message Title*" required [(ngModel)]="contact.Title" />
+
+            <textarea name="message" rows="4" placeholder="Message*" required [(ngModel)]="contact.Content"></textarea>
+
+            <div class="icons">
+                <ng-container *ngFor="let hat of hats; let i = index">
+                    <span class="chef-icon" [class.filled]="i < hoverRating || i < contact.Stars"
+                        [class.selected]="i < contact.Stars" (mouseenter)="hoverRating = i + 1"
+                        (mouseleave)="hoverRating = 0" (click)="contact.Stars = i + 1">
+                        👨‍🍳
+                    </span>
+                </ng-container>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+</div>
+  

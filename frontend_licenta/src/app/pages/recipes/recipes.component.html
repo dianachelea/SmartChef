@@ -1,0 +1,100 @@
+<div class="recipes-container">
+    <aside class="sidebar" *ngIf="!isIngredientBased">
+        <h3 class="sidebar-title">Categories</h3>
+        <div class="category-group">
+    
+            <div class="category-header" (click)="toggleSection('ingredient')">Ingredient Based</div>
+            <ul *ngIf="isSectionOpen('ingredient')">
+                <li class="category-item" (click)="onSmartSuggestionClick()"
+                    [class.active]="isActive('ingredientBased', 'smart')">
+                    Smart Suggestions
+                </li>
+            </ul>
+    
+            <div class="category-header" (click)="toggleSection('diet')">Diet</div>
+            <ul *ngIf="isSectionOpen('diet')">
+                <li class="category-item" *ngFor="let diet of dietCategories" (click)="filterBy('diet', diet.value)"
+                    [class.active]="isActive('diet', diet.value)">
+                    {{ diet.label }}
+                </li>
+            </ul>
+    
+            <div class="category-header" (click)="toggleSection('cuisine')">Cuisine</div>
+            <ul *ngIf="isSectionOpen('cuisine')">
+                <li class="category-item" *ngFor="let cuisine of cuisineCategories"
+                    (click)="filterBy('cuisine', cuisine.value)" [class.active]="isActive('cuisine', cuisine.value)">
+                    {{ cuisine.label }}
+                </li>
+            </ul>
+    
+            <div class="category-header" (click)="toggleSection('meal')">Meal Type</div>
+            <ul *ngIf="isSectionOpen('meal')">
+                <li class="category-item" *ngFor="let meal of mealCategories" (click)="filterBy('type', meal.value)"
+                    [class.active]="isActive('type', meal.value)">
+                    {{ meal.label }}
+                </li>
+            </ul>
+    
+        </div>
+    </aside>
+      
+
+    <main class="content">
+        <section class="heading">
+            <h2>Discover our recipes</h2>
+            <p>Explore delicious recipes filtered by your preferences.</p>
+        </section>
+        <div *ngIf="isIngredientBased" class="back-btn" style="margin: 1rem 0;">
+            <button class="btn-outline" (click)="goBackToAll()">Back to all recipes</button>
+        </div>
+        <div class="filters" *ngIf="!isIngredientBased">
+            <label>
+                Sort by:
+                <select [(ngModel)]="sortBy">
+                    <option value="name">Name</option>
+                </select>
+            </label>
+            <label>
+                Calories:
+                <select [(ngModel)]="selectedCalorieClass" (change)="onCaloriesClassChange()">
+                    <option value="">--</option>
+                    <option *ngFor="let cls of calorieClasses" [value]="cls.class">Class {{ cls.class }}</option>
+                </select>
+            </label>
+        </div>
+
+        <div class="recipes-grid">
+            <div class="recipe-card" *ngFor="let recipe of recipes" (click)="openRecipe(recipe.id)">
+                <img [src]="recipe.image" alt="{{ recipe.title }}">
+                <h4>{{ recipe.title }}</h4>
+                <p *ngIf="recipe.calories !== null">Calories: {{ recipe.calories }} kcal</p>
+                <p *ngIf="recipe.readyInMinutes !== null">Ready in: {{ recipe.readyInMinutes }} min</p>
+                <p *ngIf="recipe.readyInMinutes === null">Ready time unknown</p>
+                <div class="icons">
+                    <button (click)="addToFavorites(recipe)" class="icon-btn" title="Add to Favorites">
+                        <mat-icon color="warn">favorite</mat-icon>
+                    </button>
+                    <button (click)="addToTried(recipe)" class="icon-btn" title="Mark as Tried">
+                        <mat-icon color="primary">restaurant</mat-icon>
+                    </button>
+                </div>
+                  
+            </div>
+        </div>
+
+        <div class="pagination">
+            <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1">&lt;</button>
+
+            <ng-container *ngFor="let page of getVisiblePages()">
+                <ng-container *ngIf="page !== '...'; else ellipsis">
+                    <button (click)="goToPageNumber(page)" [class.active]="currentPage === page">{{ page }}</button>
+                </ng-container>
+                <ng-template #ellipsis>
+                    <span class="ellipsis">...</span>
+                </ng-template>
+            </ng-container>
+
+            <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages">&gt;</button>
+        </div>
+    </main>
+</div>

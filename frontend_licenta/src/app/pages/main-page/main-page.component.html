@@ -1,0 +1,69 @@
+<section class="hero">
+    <div class="hero__content">
+        <img src="assets/img/smartchef-logo.png" alt="SmartChef" class="logo" />
+        <div class="hero__intro">
+            <p class="subtitle">
+                Discover a smarter way to cook! With SmartChef you can turn your ingredients into delicious meals in seconds!
+            </p>
+            <div class="buttons">
+                <button class="btn-outline" (click)="goIfLoggedIn('/dashboard/my-recipes')">YOUR RECIPES</button>
+                <button class="btn-primary" (click)="goIfLoggedIn('/community')">DISCOVER OUR COMMUNITY</button>
+            </div>
+        </div>
+
+        <p class="hero__description">
+            Connect with fellow food lovers, discover what others are cooking, share your own creations, and build your recipe
+            circle.
+            Whether you're a beginner or a gourmet chef, you're always welcome at our table.
+        </p>
+    </div>
+</section>
+
+
+<section class="search">
+    <img src="assets/img/hero_ingredients.png" />
+    <div class="text">
+        <h2><span>Search recipes using your own ingredients</span></h2>
+        <p>Upload a photo of your ingredients and let SmartChef find the perfect recipe match for you! Saving time, reducing waste, and making every meal a tasty success!</p>
+        <button class="btn-primary" (click)="handleSmartUpload()">UPLOAD</button>
+    </div>
+</section>
+
+<section class="discover">
+    <h2>Discover our recipes</h2>
+    <div class="cards">
+        <figure (click)="navigateToMeal('breakfast')">
+            <img src="assets/img/plate1.jpg">
+            <figcaption>Breakfast</figcaption>
+        </figure>
+        
+        <figure (click)="navigateToMeal('lunch')">
+            <img src="assets/img/plate2.jpg">
+            <figcaption>Lunch</figcaption>
+        </figure>
+        
+        <figure (click)="navigateToMeal('dinner')">
+            <img src="assets/img/plate3.jpg">
+            <figcaption>Dinner</figcaption>
+        </figure>          
+    </div>
+    <button class="btn-primary" (click)="goIfLoggedIn('/community')">DISCOVER OUR COMMUNITY</button>
+</section>
+
+<section class="testimonials">
+    <div class="feedback-container">
+        <app-testimonial-slider></app-testimonial-slider>
+    </div>
+</section>
+
+<section class="join">
+<div class="join-img">
+    <img src="assets/img/join-us.png" alt="Join us" />
+</div>
+<div class="join-text">
+    <h2>Join Us</h2>
+    <p>Become part of a passionate cooking community and share your favorite creations with others.</p>
+    <button class="btn-primary" routerLink="/register">Register</button>
+</div>
+
+</section>

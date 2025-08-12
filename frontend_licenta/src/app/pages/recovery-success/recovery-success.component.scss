@@ -1,0 +1,66 @@
+.recovery-success-container {
+    background-color: #fef5ef;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    width: 300px;
+    margin-bottom: 1rem;
+}
+
+.form-box {
+    background: #ccf7c9; 
+    padding: 2rem;
+    border-radius: 15px;
+    width: 360px;
+    text-align: center;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.06);
+    
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: #333;
+    padding-bottom: 10px;
+}
+
+.description {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+    color: #222;
+    padding-bottom: 10px;
+}
+
+span {
+    font-size: 1.1rem;
+    color: #444;
+    display: block;
+    margin-bottom: 1.2rem;
+    padding-bottom: 10px;
+}
+
+.btn-primary {
+    background-color: #3e9a00;
+    color: white;
+    border: none;
+    padding: 0.6rem;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #328000;
+    }
+}
+
+.full-width {
+    width: 100%;
+}

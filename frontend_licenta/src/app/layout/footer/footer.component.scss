@@ -1,0 +1,38 @@
+.site-footer {
+    background: #fff;
+    padding: 60px 8%;
+
+    .columns {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap
+    }
+
+    h3 {
+        font-size: 32px;
+        margin-bottom: 20px
+    }
+
+    a {
+        display: block;
+        margin: 4px 0;
+        color: #050b0c;
+        text-decoration: none
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .social img {
+        width: 22px;
+        margin: 0 4px
+    }
+
+    small {
+        display: block;
+        margin-top: 12px
+    }
+    .right{
+        padding-top: 70px;
+    }
+}

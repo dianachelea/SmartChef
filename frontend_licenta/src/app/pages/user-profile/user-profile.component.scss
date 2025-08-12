@@ -1,0 +1,58 @@
+.profile-container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 2rem;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f5fdf5;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.avatar {
+    background: #27ae60;
+    color: white;
+    font-weight: bold;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 1.5rem;
+}
+
+.info {
+    flex-grow: 1;
+    margin-left: 1.5rem;
+}
+
+.subscribe-btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid #27ae60;
+    transition: all 0.2s ease;
+
+    background-color: white;
+    color: #27ae60;
+
+    &:hover {
+        background-color: #eafaf1;
+    }
+
+    &.subscribed {
+        background-color: #27ae60;
+        color: white;
+
+        &:hover {
+            background-color: #1e8449;
+        }
+    }
+}

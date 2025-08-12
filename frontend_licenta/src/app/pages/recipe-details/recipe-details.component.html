@@ -1,0 +1,41 @@
+<div class="recipe-detail-wrapper">
+    <h2>{{ recipe?.title }}</h2>
+
+    <div class="recipe-header">
+        <img [src]="recipe?.image" alt="{{ recipe?.title }}" />
+
+        <div class="info-box">
+            <p *ngIf="recipe?.cookingMinutes"><strong>Cooking time:</strong> {{ recipe.cookingMinutes }} minutes</p>
+            <p *ngIf="recipe.readyInMinutes && recipe.readyInMinutes > 0">Ready in: {{ recipe.readyInMinutes }} min</p>
+
+            <p class="calorie-line">
+                <strong>Calories:</strong> {{ calories }} kcal
+                <span class="class-badge" [ngClass]="getCalorieClass(calories)">
+                    {{ getCalorieLabel(calories) }}
+                </span>
+            </p>
+
+            <div class="actions">
+                <ng-container *ngIf="isMine; else publicActions">
+                    <button class="btn delete" (click)="deleteRecipe()">Delete</button>
+                    <button class="btn modify" (click)="modifyRecipe()">Modify</button>
+                </ng-container>
+                <ng-template #publicActions>
+                    <button class="btn favorite" (click)="addToFavorites()">Add to Favorite</button>
+                    <button class="btn tried" (click)="addToTried()">Add to Tried</button>
+                </ng-template>
+            </div>                 
+        </div>
+    </div>
+
+    <div class="details-section">
+        <h3>Ingredients</h3>
+        <ul>
+            <li *ngFor="let ing of recipe?.extendedIngredients">{{ ing.original }}</li>
+        </ul>
+
+        <h3>Instructions</h3>
+        <p [innerHTML]="recipe?.instructions"></p>
+    </div>
+</div>
+  

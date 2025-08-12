@@ -1,0 +1,62 @@
+<div class="form-wrapper">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="update-form">
+    <label>
+        Title:
+        <input formControlName="title" />
+    </label>
+
+    <label>
+        Calories:
+        <input type="number" formControlName="calories" />
+    </label>
+
+    <label>
+        Preparation Minutes:
+        <input type="number" formControlName="preparationMinutes" />
+    </label>
+
+    <label>
+        Ready In Minutes:
+        <input type="number" formControlName="readyInMinutes" />
+        </label>
+    <label>
+
+        Cooking Minutes:
+        <input type="number" formControlName="cookingMinutes" />
+    </label>
+
+    <label>
+        Serving:
+        <input type="number" formControlName="serving" />
+    </label>
+      
+    <label>
+        Ingredients:
+        <textarea formControlName="ingredients"></textarea>
+    </label>
+
+    <label>
+        Instructions:
+        <textarea formControlName="instructions"></textarea>
+    </label>
+
+    <label>
+        Upload Image:
+        <input type="file" (change)="onFileSelected($event)" />
+    </label>
+
+    <div *ngIf="form.get('image')?.value">
+        <p>Image Preview:</p>
+        <img [src]="form.get('image')?.value" alt="Preview" style="max-width: 200px; max-height: 200px;" />
+    </div>
+      
+    <input type="hidden" formControlName="spoonacularId" />
+    <input type="hidden" formControlName="isFavorite" />
+    <input type="hidden" formControlName="isTried" />
+
+    <div class="form-buttons">
+        <button type="submit" class="submit-btn">Update</button>
+        <button type="button" (click)="onCancel()" class="cancel-btn">Cancel</button>
+    </div>
+</form>
+</div>

@@ -1,0 +1,20 @@
+<div class="filter-bar">
+    <label for="countrySelect"> Filter by country:</label>
+    <select id="countrySelect" [(ngModel)]="selectedCountry" (change)="onCountryChange()">
+        <option value="">All</option>
+        <option *ngFor="let c of countries" [value]="c">{{ c }}</option>
+    </select>
+</div>
+
+<div class="user-cards">
+    <div *ngFor="let u of users" class="user-card" (click)="viewUser(u)">
+        <div class="avatar">{{ u.email[0] | uppercase }}</div>
+        <div class="info">
+            <h4>{{ u.username }}</h4>
+            <p>{{ u.email }}</p>
+            <p>Country :{{ u.country }}</p>
+            <p>Subscribers: {{ subscriberCounts[u.id] }}</p>
+        </div>
+    </div>
+</div>
+  

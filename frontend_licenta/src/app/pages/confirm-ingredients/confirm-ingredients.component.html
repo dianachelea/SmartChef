@@ -1,0 +1,33 @@
+<section class="confirm-ingredients">
+    <h2>We detected the following ingredients:</h2>
+
+    <ul class="ingredient-list">
+        <li *ngFor="let ingredient of ingredients; let i = index">
+            <input [(ngModel)]="ingredients[i]" />
+            <button class="remove-btn" (click)="removeIngredient(i)">
+                <mat-icon color="warn">delete</mat-icon>
+            </button>
+    
+            <div class="substitutes" *ngIf="substitutes[ingredient]?.length">
+                <p>Substitutes:</p>
+                <ul>
+                    <li *ngFor="let sub of substitutes[ingredient]; let j = index">
+                        {{ sub }}
+                        <button class="remove-btn" (click)="removeSubstitute(ingredient, j)">
+                            <mat-icon color="warn">close</mat-icon>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+      
+    <div class="add-more">
+        <label for="newIngredient">Want to add more?</label>
+        <input id="newIngredient" [(ngModel)]="newIngredient" placeholder="Type new ingredient" />
+        <button class="btn-outline" (click)="addIngredient()">Add</button>
+    </div>
+
+    <button class="find-btn" (click)="findRecipes()">Find Recipes</button>
+</section>
+  

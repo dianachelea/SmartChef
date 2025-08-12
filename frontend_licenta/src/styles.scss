@@ -1,0 +1,194 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+@media screen and (max-width: 800px) {
+    .search {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px 5%;
+        flex-wrap: nowrap;
+    }
+
+    .search img {
+        width: 40%;
+        max-width: 300px;
+        height: auto;
+    }
+
+    .search .text {
+        flex: 1;
+        max-width: 60%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+    }
+
+    .search .text h2 {
+        font-size: 16px;
+        margin-bottom: 8px;
+        line-height: 1.2;
+    }
+
+    .search .text h2::before {
+        content: "Search recipes using";
+        display: block;
+    }
+
+    .search .text h2::after {
+        content: "your own ingredients";
+        display: block;
+    }
+
+    .search .text span {
+        display: none;
+    }
+
+    .search .text p {
+        font-size: 13px;
+        margin-bottom: 10px;
+    }
+
+    .search .text button {
+        font-size: 13px;
+        padding: 6px 12px;   
+    }
+
+
+    .navbar {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 4%;
+
+    .brand img {
+        height: 40px;
+    }
+
+    .search-bar {
+        flex: 1;
+        margin: 10px 20px;
+        max-width: 300px;
+
+        input {
+                width: 100%;
+            }
+        }
+
+        .main-nav {
+            flex-direction: row;
+            gap: 8px;
+            font-size: 12px; 
+        }
+
+        .actions {
+            flex-direction: row;
+            gap: 8px;
+
+            button {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+    }
+
+    .hero {
+        padding: 40px 5%;
+        background-size: cover;
+        background-position: center;
+        text-align: left;
+
+        .logo {
+            width: 80%;
+            max-width: 220px;
+            margin: 0 0 20px 0;
+        }
+
+        .hero__content {
+            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+            padding-right: 70%;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+
+            button {
+                width: 100%;
+                max-width: 100px;
+                font-size: 12px;
+            }
+        }
+    }
+    
+    html,
+    body {
+        font-size: 12px;
+        overflow-x: hidden;
+    }
+        
+}
+
+    
+html,
+body {
+    margin: 0;
+    padding: 0;
+    
+}
+
+
+:root {
+    --gap-s: .5rem;
+    --gap-m: 1rem;
+    --gap-l: 2rem;
+    --radius: 4px;
+    --color-accent: #ff8c00;
+    --color-primary: #218600;
+    --shadow: 0 1px 4px rgba(0, 0, 0, .08);
+}
+
+.nowrap-scroll {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: var(--gap, var(--gap-m));
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    >* {
+        flex: 0 0 auto;
+    }
+}
+
+.no-shrink {
+    flex-shrink: 0;
+}
+
+.flex-min-200 {
+    flex: 1 0 200px;
+}
+
+.flex-min-320 {
+    flex: 1 0 320px;
+}
+

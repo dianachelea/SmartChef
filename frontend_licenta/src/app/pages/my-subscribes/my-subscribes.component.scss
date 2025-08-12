@@ -1,0 +1,50 @@
+.title {
+    margin-left: 1rem;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+.user-card {
+    display: flex;
+    align-items: center;
+    background: #f5fdf5;
+    border-radius: 12px;
+    padding: 1rem;
+    margin: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #27ae60;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info {
+    margin-left: 1.5rem;
+    flex-grow: 1;
+}
+
+.unsubscribe-btn {
+    padding: 0.5rem 1rem;
+    background: white;
+    border: 2px solid #e74c3c;
+    color: #e74c3c;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s ease;
+
+    &:hover {
+        background: #e74c3c;
+        color: white;
+    }
+}

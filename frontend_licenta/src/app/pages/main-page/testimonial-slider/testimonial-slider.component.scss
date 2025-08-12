@@ -1,0 +1,78 @@
+$green: #218600;
+$beige: #faf6f1;
+
+.testimonials {
+    text-align: center;
+    background-color: $beige;
+    padding: 40px 5%;
+
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    .carousel {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        .cards {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: nowrap;
+            align-items: stretch;
+            >* {
+                    flex: 0 0 420px;
+                    max-width: 420px;           
+                }
+        }
+
+        .nav {
+            background-color: $green;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 14px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    }
+
+    .dots {
+        display: flex;
+        justify-content: center;
+        margin-top: 12px;
+        gap: 6px;
+
+        span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #c5e7c0;
+            cursor: pointer;
+
+            &.active {
+                background-color: $green;
+            }
+        }
+    }
+    
+}
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 20px;
+    align-items: center;
+
+    select {
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+}

@@ -1,0 +1,10 @@
+<h2 class="title">Your Subscriptions</h2>
+
+<div *ngFor="let u of subs" class="user-card" (click)="viewProfile(u.id)">
+    <div class="avatar">{{ u.email[0] | uppercase }}</div>
+    <div class="info" >
+        <h4>{{ u.username }}</h4>
+        <p>Country: {{ u.country }}</p>
+        <button class="unsubscribe-btn" (click)="toggleSub(u.id)">Unsubscribe</button>
+    </div>
+</div>

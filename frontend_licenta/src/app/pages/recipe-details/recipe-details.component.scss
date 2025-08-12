@@ -1,0 +1,132 @@
+.recipe-detail-wrapper {
+    padding: 2rem;
+    background-color: #FAF2EC;
+
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .recipe-header {
+        display: flex;
+        gap: 2rem;
+        align-items: flex-start;
+
+        img {
+            width: 350px;
+            border-radius: 8px;
+        }
+
+        .info-box {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 0.8rem;
+
+            p {
+                font-size: 1rem;
+                margin: 0;
+            }
+
+            .calorie-line {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .class-badge {
+                display: inline-block;
+                border: 2px solid;
+                border-radius: 50%;
+                width: 28px;
+                height: 28px;
+                text-align: center;
+                font-weight: bold;
+                line-height: 24px;
+                font-size: 0.95rem;
+                background-color: white;
+            }
+
+            .A {
+                border-color: #2ecc71;
+                color: #2ecc71;
+            }
+
+            .B {
+                border-color: #f1c40f;
+                color: #f1c40f;
+            }
+
+            .C {
+                border-color: #e67e22;
+                color: #e67e22;
+            }
+
+            .D {
+                border-color: #e74c3c;
+                color: #e74c3c;
+            }
+
+            .actions {
+                margin-top: 1rem;
+                display: flex;
+                gap: 1rem;
+
+                button {
+                    padding: 0.5rem 1rem;
+                    border: none;
+                    background: #27ae60;
+                    color: white;
+                    border-radius: 5px;
+                    cursor: pointer;
+
+                    &:hover {
+                        background: #1e8b50;
+                    }
+                }
+            }
+            .actions button {
+                padding: 0.5rem 1.2rem;
+                font-weight: 600;
+                border-radius: 6px;
+                border: none;
+                cursor: pointer;
+                transition: background 0.2s;
+            }
+
+            .actions .delete {
+                background-color: #e74c3c;
+                color: white;
+            }
+
+            .actions .delete:hover {
+                background-color: #c0392b;
+            }
+
+            .actions .modify {
+                background-color: #e67e22;
+                color: white;
+            }
+
+            .actions .modify:hover {
+                background-color: #ca6f1e;   }
+        }
+    }
+
+    .details-section {
+        margin-top: 2rem;
+
+        h3 {
+            margin-top: 1rem;
+        }
+
+        ul {
+            padding-left: 1.5rem;
+
+            li {
+                list-style-type: disc;
+            }
+        }
+    }
+        
+}

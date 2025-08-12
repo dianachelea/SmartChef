@@ -1,0 +1,50 @@
+<section class="testimonials">
+    <h2>What people say</h2>
+
+    <div class="filters">
+        <label>Sort by:</label>
+        <select [(ngModel)]="selectedSort" (change)="loadFilteredFeedback()">
+            <option value="Name">Name</option>
+            <option value="Stars">Stars</option>
+        </select>
+
+        <label>Category:</label>
+        <select [(ngModel)]="selectedCategory" (change)="loadFilteredFeedback()">
+            <option value="all">All</option>
+            <option [ngValue]="0">Content Quality</option>
+            <option [ngValue]="1">User Experience</option>
+            <option [ngValue]="2">Technical Performance</option>
+            <option [ngValue]="3">Cooking Tools</option>
+            <option [ngValue]="4">Recipes and Feedback</option>
+        </select>
+
+        <label>Rate:</label>
+        <select [(ngModel)]="selectedStars" (change)="loadFilteredFeedback()">
+            <option value="all">All</option>
+            <option *ngFor="let star of [5, 4, 3, 2, 1]" [ngValue]="star">{{ star }} Stars</option>
+        </select>
+    </div>
+
+    <div class="carousel" *ngIf="testimonials.length > 0; else noFeedback">
+        <button class="nav" (click)="prevSlide()">←</button>
+
+        <div class="cards">
+            <app-testimonial-cards *ngFor="let t of visibleTestimonials" [name]="t.IsAnonymus ? 'Anonymous' : t.Name"
+                [text]="t.Content" [stars]="t.Stars">
+            </app-testimonial-cards>
+        </div>
+
+        <button class="nav" (click)="nextSlide()">→</button>
+    </div>
+
+    <ng-template #noFeedback>
+        <p style="text-align: center;">No feedback available.</p>
+    </ng-template>
+
+    <div class="dots" *ngIf="totalSlides > 1">
+        <span *ngFor="let i of [].constructor(totalSlides); let index = index" [class.active]="index === currentSlide"
+            (click)="goToSlide(index)">
+        </span>
+    </div>
+</section>
+  

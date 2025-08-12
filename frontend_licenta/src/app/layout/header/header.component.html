@@ -1,0 +1,47 @@
+<header class="navbar">
+    <div class="brand">
+    <a routerLink="/">
+        <img src="assets/img/smartchef.png" alt="SmartChef">
+    </a>
+    </div>
+
+    <form class="search-bar" (ngSubmit)="onSearch(searchInput.value)" #searchForm="ngForm" novalidate>
+        <input #searchInput name="q" ngModel placeholder="Search…">
+        <button type="submit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+        </button>
+    </form>
+
+    <nav class="main-nav">
+        <a routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+        <a (click)="onProtectedAction('/recipes')">Recipes</a>
+        <a routerLink="/about">About</a>
+        <a routerLink="/contact-us">Contact Us</a>
+    </nav>
+
+    <div class="actions" *ngIf="!auth.isLogged(); else loggedInActions">
+        <button class="btn-login" routerLink="/login">Login</button>
+        <button class="btn-register" routerLink="/register">Register</button>
+    </div>
+    
+    <ng-template #loggedInActions>
+        <div class="user-dropdown" (click)="toggleDropdown()" [class.open]="dropdownOpen">
+            <div class="user-info">
+                <div class="avatar">{{ auth.getEmail()[0] | uppercase }}</div>
+                <span class="email">{{ auth.getEmail() }}</span>
+                <span class="chevron">▾</span>
+            </div>
+    
+            <div class="dropdown-menu" *ngIf="dropdownOpen">
+                <button (click)="navigate('/dashboard')">Dashboard</button>
+                <button (click)="logout()">Logout</button>
+            </div>
+        </div>
+    </ng-template>
+      
+      
+</header>

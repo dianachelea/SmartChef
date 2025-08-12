@@ -1,0 +1,11 @@
+﻿IF NOT EXISTS (
+    SELECT * FROM INFORMATION_SCHEMA.TABLES 
+    WHERE TABLE_NAME = 'Subscriptions' AND TABLE_SCHEMA = 'Licenta'
+)
+BEGIN
+    CREATE TABLE [Licenta].[Subscriptions] (
+        UserId1 UNIQUEIDENTIFIER NOT NULL FOREIGN KEY REFERENCES Licenta.Users(Id),
+        UserId2 UNIQUEIDENTIFIER NOT NULL FOREIGN KEY REFERENCES Licenta.Users(Id),
+        PRIMARY KEY (UserId1, UserId2)
+    );
+END

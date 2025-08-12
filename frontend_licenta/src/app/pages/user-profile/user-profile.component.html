@@ -1,0 +1,22 @@
+<div class="profile-container" *ngIf="user">
+    <div class="profile-header">
+        <div class="avatar">{{ user.email[0] | uppercase }}</div>
+        <div class="info">
+            <h2>{{ user.username }}</h2>
+            <p>Email: {{ user.email }}</p>
+            <p>Country: {{ user.country }}</p>
+            <p>Subscribers: {{ subscriberCount }}</p>
+        </div>
+        <button class="subscribe-btn" [class.subscribed]="isSubscribed" (click)="toggleSub()">
+            {{ isSubscribed ? 'Subscribed' : 'Subscribe' }}
+        </button>
+    </div>
+
+    <div class="user-recipes">
+        <h3>{{ user.username }}'s Recipes</h3>
+        <app-user-recipe-card *ngFor="let r of recipes" [recipe]="r" [isOwnProfile]="currentUserEmail === user.email"
+            (favorite)="handleAddFavorite($event)" (tried)="handleAddTried($event)" (view)="openRecipeDetails(r.id)">
+        </app-user-recipe-card>
+    </div>
+</div>
+  

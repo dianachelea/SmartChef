@@ -1,0 +1,104 @@
+.login-container {
+    background-color: #FAF2EC;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo {
+    width: 400px;
+    margin-bottom: 1rem;
+}
+
+.form-box {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 350px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 1.5rem;
+    font-size: 2.1rem;
+}
+
+.form-row {
+    text-align: left;
+    margin-bottom: 1rem;
+
+    label {
+        font-size: 1.3rem;
+        display: block;
+        margin-bottom: 0.25rem;
+    }
+
+    input {
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+}
+
+.password-field {
+    position: relative;
+
+    input {
+        width: 100%;
+    }
+
+    .eye-button {
+        position: absolute;
+        right: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 1.1rem;
+    }
+}
+
+.forgot-password, .register-link {
+    font-size: 1.2rem;
+    color: #666;
+    text-align: left;
+    margin-top: -0.5rem;
+    margin-bottom: 1rem;
+}
+
+.btn-primary {
+    background-color: #3e9a00;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+
+    &:hover {
+        background-color: #328000;
+    }
+}
+
+.full-width {
+    width: 100%;
+}
+
+.small-text {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+
+    a {
+        color: #3e9a00;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
